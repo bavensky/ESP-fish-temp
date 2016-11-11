@@ -30,6 +30,7 @@ void setup() {
   espert.dht.init();
 
   DS18B20.begin();
+  pinMode(13, INPUT_PULLUP);
   Serial.print("Found ");
   Serial.print(DS18B20.getDeviceCount(), DEC);
   Serial.println(" devices.");
@@ -54,17 +55,20 @@ void loop() {
   float h = espert.dht.getHumidity();
 
   float tempC = DS18B20.getTempC(insideThermometer);
-//  Serial.print("Temp C: ");
-//  Serial.println(tempC);
-//  Serial.print("Temp: ");
-//  Serial.print(t);
-//  Serial.print(" Humid: ");
-//  Serial.println(h);
+  //  Serial.print("Temp C: ");
+  //  Serial.println(tempC);
+  //  Serial.print("Temp: ");
+  //  Serial.print(t);
+  //  Serial.print(" Humid: ");
+  //  Serial.println(h);
 
-  espert.oled.setTextSize(2);
+  espert.oled.clear();
+  espert.oled.setTextSize(3);
   espert.oled.setTextColor(ESPERT_WHITE);
   espert.oled.setCursor(0, 0);
   espert.oled.println("Room");
+  espert.oled.setTextSize(2);
+  espert.oled.setTextColor(ESPERT_WHITE);
   espert.oled.print("Temperature: ");
   espert.oled.print(t);
   espert.oled.print(" C ");
@@ -72,12 +76,15 @@ void loop() {
   espert.oled.print(h);
   espert.oled.println(" %RH ");
   espert.oled.println("");
+  espert.oled.setTextSize(3);
+  espert.oled.setTextColor(ESPERT_WHITE);
   espert.oled.println("Water");
+  espert.oled.setTextSize(2);
+  espert.oled.setTextColor(ESPERT_WHITE);
   espert.oled.print("Temp : ");
   espert.oled.print(tempC);
   espert.oled.println(" C ");
   espert.oled.update();
+  delay(5000);
 
-  delay(2000);
-  espert.oled.clear();
 }
